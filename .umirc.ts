@@ -1,10 +1,15 @@
 import { defineConfig } from 'dumi';
+
+const isProd = process.env.node_env === 'production';
+
+const nameSpace = '/toy-ui/';
+
 export default defineConfig({
   title: 'toy-ui',
-  favicon: '/assets/favicon.ico',
-  logo: '/assets/logo.png',
+  favicon: isProd ? `${nameSpace}assets/favicon.ico` : '/assets/favicon.ico',
+  logo: isProd ? `${nameSpace}assets/logo.png` : '/assets/logo.png',
   outputPath: 'docs-dist',
-  publicPath: '/toy-ui/',
-  base: '/toy-ui/',
+  publicPath: nameSpace,
+  base: nameSpace,
   // more config: https://d.umijs.org/config
 });
