@@ -2,11 +2,13 @@
  * @Author: wangzhisen
  * @Date: 2022-09-01 16:23:58
  * @Last Modified by: wangzhisen
- * @Last Modified time: 2022-09-01 16:32:11
+ * @Last Modified time: 2022-09-02 12:07:21
  *
  * Button组件的类型定义
  */
-import type { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, ReactNode, SyntheticEvent, ButtonHTMLAttributes } from 'react';
+
+type NativeButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 /**
  * ButtonSizeType: 按钮组件的尺寸类型
@@ -38,7 +40,7 @@ export type ButtonShareType = 'radius' | 'default';
  */
 export type ButtonThemeType = 'primary' | 'info' | 'danger' | 'warning' | 'default';
 
-export type ButtonProps = {
+export type ButtonProps = NativeButtonProps & {
   /**子元素 */
   children?: ReactNode;
   /**按钮尺寸*/
@@ -54,5 +56,9 @@ export type ButtonProps = {
   /**形状 */
   shape?: ButtonShareType;
   /**样式效果 */
-  style: CSSProperties;
+  style?: CSSProperties;
+  /**额外的css类型 */
+  classNames?: string;
+  /**点击的回调函数 */
+  onClick?: (event?: SyntheticEvent<HTMLButtonElement>) => void;
 };

@@ -2,41 +2,16 @@
  * @Author: wangzhisen
  * @Date: 2022-09-01 16:28:18
  * @Last Modified by: wangzhisen
- * @Last Modified time: 2022-09-01 16:32:25
+ * @Last Modified time: 2022-09-02 14:30:02
  *
  * 按钮组件
  */
 import './index.less';
 import React from 'react';
 import type { ButtonProps } from './typing';
-import classNames from 'classnames';
+import { joinClassNamesByProps } from '../utils/className';
 
 const COMPONENT_PREFIX = 'toy-btn';
-
-function joinClassNames(props: Record<string, any>, prefix?: string) {
-  const properties = prefix
-    ? Object.keys(props).reduce(
-        (total, key: string) => {
-          const propValue = props[key];
-          const propKey =
-            typeof propValue === 'string'
-              ? prefix
-                ? `${prefix}-${key}-${propValue}`
-                : key
-              : prefix
-              ? `${prefix}-${key}`
-              : key;
-          return {
-            ...total,
-            [propKey]: props[key],
-          };
-        },
-        { [prefix]: true },
-      )
-    : props;
-
-  return classNames(properties);
-}
 
 const defaultProps: Partial<ButtonProps> = {
   size: 'md',
@@ -45,6 +20,7 @@ const defaultProps: Partial<ButtonProps> = {
   block: false,
   disabled: false,
   loading: false,
+  classNames: '',
 };
 
 export default function Button(props: ButtonProps) {
@@ -53,12 +29,35 @@ export default function Button(props: ButtonProps) {
     ...props,
   };
 
-  const { children, style, ...restProps } = assignProps;
+  const {
+    children,
+    style,
+    classNames,
+    theme,
+    size,
+    block,
+    disabled,
+    loading,
+    onClick,
+    shape,
+    className,
+    ...restProps
+  } = assignProps;
 
-  const componentClassNames = joinClassNames(restProps, COMPONENT_PREFIX);
+  const componentClassNames = joinClassNamesByProps(
+    {
+      theme,
+      size,
+      block,
+      disabled,
+      loading,
+      shape,
+    },
+    { prefix: COMPONENT_PREFIX, extraClassName: className },
+  );
 
   return (
-    <button className={componentClassNames} style={style}>
+    <button className={componentClassNames} style={style} onClick={onClick} {...restProps}>
       {children}
     </button>
   );

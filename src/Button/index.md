@@ -176,6 +176,10 @@ export default () => (
 
 使用`loading`属性可以是否展示加载中的动画交互效果
 
+<Alert type="warning">
+  theme选择warning时,loading加载效果不明显，需要修复
+</Alert>
+
 ```tsx
 /**
  * background: '#f6f7f9'
@@ -204,4 +208,63 @@ export default () => (
     </Button>
   </>
 );
+```
+
+---
+
+### 点击事件 <Badge>onClick</Badge>
+
+使用`onClick`属性可以创建按钮点击的回调函数
+
+```tsx
+/**
+ * background: '#f6f7f9'
+ */
+import React from 'react';
+import type { SyntheticEvent } from 'react';
+import { Button } from 'toy-ui';
+
+const btnStyle = { margin: '4px 4px' };
+
+const handleClick = (event: SyntheticEvent<HTMLButtonElement>) => {
+  console.log('event', event);
+  window.alert('Click!');
+};
+
+export default () => {
+  return (
+    <>
+      <Button style={btnStyle} onClick={handleClick}>
+        Hello World
+      </Button>
+    </>
+  );
+};
+```
+
+---
+
+### button 属性穿透
+
+Button 组件通过`button`元素实现，所以可以使用诸如`title` `role`等属性去增强体验
+
+```tsx
+/**
+ * background: '#f6f7f9'
+ */
+import React from 'react';
+import type { SyntheticEvent } from 'react';
+import { Button } from 'toy-ui';
+
+const btnStyle = { margin: '4px 4px' };
+
+export default () => {
+  return (
+    <>
+      <Button style={btnStyle} title="button" role="button" className="extra-class">
+        Hello World
+      </Button>
+    </>
+  );
+};
 ```
