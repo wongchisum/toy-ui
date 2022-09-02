@@ -1,0 +1,114 @@
+// 组件前缀
+@prefix:toy-btn;
+
+.size(@fontSize:14px,@padding) {
+    font-size: @fontSize;
+    line-height: 1em;
+    padding:@padding;
+}
+
+.theme(@bgcolor:#fff,@color:#000) {
+    color:@color ;
+    background-color: @bgcolor;
+}
+
+.cursor(@type:pointer) {
+    cursor: @type;
+}
+
+.shape(@radius:0px) {
+    border-radius: @radius;
+}
+
+@keyframes spin {
+    0% {
+        transform:rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
+.@{prefix}{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4px 6px;
+    outline: none;
+    appearance: none;
+    border: none;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    .cursor();
+    // 尺寸
+    &-size-sm {
+        .size(12px,4px 6px)
+    }
+    &-size-md {
+        .size(14px,6px 8px)
+    }
+    &-size-lg {
+        .size(18px,8px 8px)
+    }
+    &-size-xl {
+        .size(20px,10px 8px)
+    }
+
+    // 形状
+    &-shape-default {
+        .shape()
+    }
+
+    &-shape-radius {
+        .shape(4px)
+    }
+
+
+    // 主题色
+    &-theme-default {
+        .theme()
+    }
+    &-theme-primary {
+        .theme(#7FBCD2, #fff)
+    }
+    &-theme-info {
+        .theme(#3FA796, #fff)
+    }
+    &-theme-danger {
+        .theme(#EB4747, #fff)
+    }
+    &-theme-warning {
+        .theme(#FFD24C, #fff)
+    }
+
+    // 布局
+    &-block {
+        display: flex;
+        width: 100%;
+    }
+
+    // 行为
+    &-disabled {
+        opacity: 0.4;
+        .cursor(not-allowed)
+    }
+
+    // 加载状态
+    // Tofix:theme-warning配色的loading动画效果不够显眼
+    &-loading {
+        &::before {
+            content:'';
+            width: 14px;
+            height: 14px;
+            border-top: 1px solid #d9d9d9;
+            border-left: 1px solid #d9d9d9;
+            background-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5em;
+            animation: spin 2s infinite linear;
+        }
+    }
+}
+
