@@ -20,7 +20,20 @@
     border-radius: @radius;
 }
 
+@keyframes spin {
+    0% {
+        transform:rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
 .@{prefix}{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 4px 6px;
     outline: none;
@@ -70,17 +83,32 @@
     }
 
     // 布局
-    &-inline {
-        display: inline;
-    }
     &-block {
-        display: block;
+        display: flex;
         width: 100%;
     }
 
     // 行为
     &-disabled {
+        opacity: 0.4;
         .cursor(not-allowed)
+    }
+
+    // 加载状态
+    // Tofix:theme-warning配色的loading动画效果不够显眼
+    &-loading {
+        &::before {
+            content:'';
+            width: 14px;
+            height: 14px;
+            border-top: 1px solid #d9d9d9;
+            border-left: 1px solid #d9d9d9;
+            background-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5em;
+            animation: spin 2s infinite linear;
+        }
     }
 }
 
