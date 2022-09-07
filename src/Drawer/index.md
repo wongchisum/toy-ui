@@ -78,3 +78,35 @@ export default () => {
 ```
 
 ---
+
+### 尺寸 <Badge>width</Badge> <Badge>height</Badge>
+
+通过`width`以及`height`配置可以调整抽屉容器的尺寸
+
+```tsx
+/**
+ * background: '#f6f7f9'
+ */
+import React, { useState, useCallback } from 'react';
+import { Button, Drawer } from 'toy-ui';
+
+const btnStyle = { margin: '8px 8px' };
+
+export default () => {
+  const [visible, setVisible] = useState(false);
+  const handleToggle = useCallback(() => {
+    setVisible((prevState: boolean) => !prevState);
+  }, []);
+
+  return (
+    <>
+      <Button size="sm" theme="primary" style={btnStyle} onClick={handleToggle}>
+        Left
+      </Button>
+      <Drawer visible={visible} direction="left" width="50%" onClose={handleToggle}>
+        <div>内容</div>
+      </Drawer>
+    </>
+  );
+};
+```

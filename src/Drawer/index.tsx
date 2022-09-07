@@ -7,7 +7,7 @@
  * 抽屉组件
  */
 import './index.less';
-import React, { SyntheticEvent, useRef } from 'react';
+import React, { SyntheticEvent, useRef, useMemo } from 'react';
 import type { DrawerProps } from './typing';
 import { joinClassNamesByProps } from '../utils/className';
 import Overlay from '../Overlay';
@@ -21,9 +21,8 @@ const defaultProps: Partial<DrawerProps> = {
 
 export default function Drawer(props: DrawerProps) {
   const assignProps = { ...defaultProps, ...props };
-  const { visible, direction, children, onClose } = assignProps;
+  const { visible, direction, children, width, height, onClose } = assignProps;
 
-  console.log('assignProps.direction', assignProps.direction);
   const componentClass = joinClassNamesByProps(
     { visible, direction },
     { prefix: COMPONENT_PREFIX },
@@ -40,6 +39,24 @@ export default function Drawer(props: DrawerProps) {
     onClose?.();
   }
 
+  // 计算宽高
+  const drawerStyle = useMemo(() => {
+    let drawerWidth: string | number;
+    let drawerHeight: string | number;
+    if (direction === 'bottom' || direction === 'top') {
+      drawerWidth = width ?? '100%';
+      drawerHeight = height ?? '30%';
+    } else {
+      drawerWidth = width ?? '30%';
+      drawerHeight = height ?? '100%';
+    }
+    return {
+      width: drawerWidth,
+      height: drawerHeight,
+    };
+  }, [width, height, direction]);
+
+  console.log('drawerStyle', drawerStyle);
   return (
     <Overlay
       visible={assignProps.visible}
@@ -47,7 +64,7 @@ export default function Drawer(props: DrawerProps) {
       direction={assignProps.direction}
       onClose={handleClose}
     >
-      <div className={componentClass} ref={containerRef}>
+      <div className={componentClass} ref={containerRef} style={drawerStyle}>
         {children}
       </div>
     </Overlay>

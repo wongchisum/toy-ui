@@ -20,6 +20,10 @@ export type DrawerProps = {
   maskCloseable?: boolean;
   /**子元素 */
   children?: ReactNode;
+  /**抽屉容器的宽度 */
+  width?: number | string;
+  /**抽屉容器的高度 */
+  height?: number | string;
   /**关闭弹窗组件 */
   onClose?: () => void;
 };
